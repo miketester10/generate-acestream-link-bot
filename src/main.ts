@@ -8,6 +8,7 @@ config({ quiet: true });
 
 const BOT_TOKEN = process.env.BOT_TOKEN!;
 const bot = new Bot(BOT_TOKEN);
+const allowedUsers: number[] = [1045814971, 72274003];
 
 // Avvia il bot
 (async () => {
@@ -45,7 +46,7 @@ bot.command("start", async (ctx) => {
       ${code("f2df4f96b23388b45e75d848a48a510cf8af560f")}
 
       ${underline("❗️ Note:")}
-      ${italic("I do not host or provide any Acestream content, I only help you to generate the correct URL.")}
+      ${italic("I don't host or provide any Acestream content, I only help you to generate the correct URL.")}
 
       ${blockquote(`⚠️ For more information contact the developer:\n@m1keehrmantraut`)}
     `;
@@ -54,6 +55,9 @@ bot.command("start", async (ctx) => {
 
 // Gestione messaggi di testo
 bot.on("message", async (ctx) => {
+  const telegramId = ctx.from?.id!;
+  if (!allowedUsers.includes(telegramId)) return await ctx.reply(`❌ You aren't allowed to use this bot.`);
+
   try {
     const rawMessage = ctx.text;
     if (!rawMessage) return;
