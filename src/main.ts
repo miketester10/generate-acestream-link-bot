@@ -3,7 +3,7 @@ import { logger } from "./logger/logger";
 import { config } from "dotenv";
 import { extractAcestreamId } from "./utility/extract-acestream-id.utility";
 import { validateAcestreamId } from "./utility/validate-acestream-id.utility";
-import { AcestreamUrl, AcestreamUrlKey } from "./enums/acestram-url.enum";
+import { AcestreamUrl, AcestreamUrlKey } from "./enums/acestream-url.enum";
 config({ quiet: true });
 
 const BOT_TOKEN = process.env.BOT_TOKEN!;
@@ -88,15 +88,15 @@ bot.callbackQuery<RegExp>(/^.+$/, async (ctx) => {
   switch (key) {
     case AcestreamUrlKey.HOME:
       message = format`${bold(format`${underline("🏡 Home")}`)}\n${code(AcestreamUrl.HOME + id)}`;
-      await ctx.send(message);
       break;
 
     case AcestreamUrlKey.SERVER:
       message = format`${bold(format`${underline("🏢 Server")}`)}\n${code(AcestreamUrl.SERVER + id)}`;
-      await ctx.send(message);
       break;
 
     default:
+      message = format`${code("N/A")}`;
       break;
   }
+  await ctx.send(message);
 });
