@@ -6,7 +6,6 @@ import { AcestreamUrl, AcestreamUrlKey } from "./enums/acestream-url.enum";
 
 const BOT_TOKEN = process.env.BOT_TOKEN!;
 const bot = new Bot(BOT_TOKEN);
-const allowedUsers: number[] = [1045814971, 72274003];
 
 // Avvia il bot
 (async () => {
@@ -53,9 +52,6 @@ bot.command("start", async (ctx) => {
 
 // Gestione messaggi di testo
 bot.on("message", async (ctx) => {
-  const telegramId = ctx.from?.id!;
-  if (!allowedUsers.includes(telegramId)) return await ctx.reply(`❌ Non sei autorizzato a usare questo bot.`);
-
   try {
     const rawMessage = ctx.text;
     if (!rawMessage) return;
