@@ -1,10 +1,8 @@
 import { blockquote, bold, Bot, code, format, italic, underline, TelegramInlineKeyboardButton, TelegramParams, FormattableString } from "gramio";
 import { logger } from "./logger/logger";
-import { config } from "dotenv";
 import { extractAcestreamId } from "./utility/extract-acestream-id.utility";
 import { validateAcestreamId } from "./utility/validate-acestream-id.utility";
 import { AcestreamUrl, AcestreamUrlKey } from "./enums/acestream-url.enum";
-config({ quiet: true });
 
 const BOT_TOKEN = process.env.BOT_TOKEN!;
 const bot = new Bot(BOT_TOKEN);
@@ -87,15 +85,15 @@ bot.on("message", async (ctx) => {
 bot.callbackQuery<RegExp>(/^.+$/, async (ctx) => {
   await ctx.answerCallbackQuery(); // Stop animation of the button
   const data = ctx.update?.callback_query?.data;
-  const [key, id] = data?.split(":") || [];
+  const [callbackKey, acestreamId] = data?.split(":") || [];
   let message: FormattableString;
-  switch (key) {
+  switch (callbackKey) {
     case AcestreamUrlKey.HOME:
-      message = format`${bold(format`${underline("🏡 Home")}`)}\n${code(AcestreamUrl.HOME + id)}`;
+      message = format`${bold(format`${underline("🏡 Home")}`)}\n${code(AcestreamUrl.HOME + acestreamId)}`;
       break;
 
     case AcestreamUrlKey.SERVER:
-      message = format`${bold(format`${underline("🏢 Server")}`)}\n${code(AcestreamUrl.SERVER + id)}`;
+      message = format`${bold(format`${underline("🏢 Server")}`)}\n${code(AcestreamUrl.SERVER + acestreamId)}`;
       break;
 
     default:

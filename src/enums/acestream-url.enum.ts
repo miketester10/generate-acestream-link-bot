@@ -1,6 +1,3 @@
-import { config } from "dotenv";
-config({ quiet: true });
-
 export enum AcestreamUrlKey {
   HOME = "HOME",
   SERVER = "SERVER",

@@ -1,6 +1,6 @@
 services:
   GenerateAcestreamLinkBot:
-    image: node:20
+    image: oven/bun:1
     container_name: GenerateAcestreamLinkBot
     working_dir: /app
     volumes:
@@ -9,7 +9,7 @@ services:
       - .env
     environment:
       - TZ=Europe/Rome # Imposta la variabile TimeZone per avere l'orario italiano nei logs
-    command: ["sh", "-c", "npm install --include=dev && npm run start"]
+    command: ["sh", "-c", "bun install && bun run start"]
     restart: unless-stopped
     mem_limit: 1000m
     memswap_limit: 1000m
