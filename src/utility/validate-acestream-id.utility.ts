@@ -6,6 +6,6 @@ export const validateAcestreamId = (id: string): string | null => {
     return id;
   }
 
-  logger.warn(`⚠️ Invalid Acestream ID. Please ensure it is a 40-character hexadecimal string.`);
+  logger.warn(`⚠️ ID Acestream non valido. Assicurati che sia una stringa esadecimale di 40 caratteri.`);
   return null;
 };

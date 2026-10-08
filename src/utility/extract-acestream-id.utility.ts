@@ -12,7 +12,7 @@ export const extractAcestreamId = (message: string): string => {
     const id = parsedUrl.searchParams.get("id");
     if (id) return id;
   } catch {
-    logger.debug("Not a valid URL. Continuing...");
+    logger.debug("URL non valido. Continuo...");
   }
 
   return message;

@@ -27,26 +27,26 @@ bot.command("start", async (ctx) => {
   logger.info(`Bot avviato da: ${name} -  Username: ${username} - Telegram ID: ${telegramId}`);
 
   const message = format`
-      👋 Hey ${name}
+      👋 Ciao ${name}
 
-      ✨ I'm a bot that helps you to generate an Acestream Link ✨
+      ✨ Sono un bot che ti aiuta a generare un link Acestream ✨
 
-        ${underline("📚 How to use me:")}
-        🔹 Send me an ID or URL
-        🔹 Select the Host where Acestream engine is running
-        🔹 I will reply with the correct URL
+        ${underline("📚 Come usarmi:")}
+        🔹 Inviami un ID o un URL
+        🔹 Seleziona l'host dove è in esecuzione l'engine Acestream
+        🔹 Ti risponderò con l'URL corretto
 
-      ${bold("Input example:")}
+      ${bold("Esempio di input:")}
       ${code("acestream://251b0f9b25ad33a24a330be58d10ce20474c6460")}
-      ${italic("or")}
+      ${italic("oppure")}
       ${code("http://127.0.0.1:6878/ace/getstream?id=f2df4f96b23388b45e75d848a48a510cf8af560f")}
-      ${italic("or")}
+      ${italic("oppure")}
       ${code("f2df4f96b23388b45e75d848a48a510cf8af560f")}
 
-      ${underline("❗️ Note:")}
-      ${italic("I don't host or provide any Acestream content, I only help you to generate the correct URL.")}
+      ${underline("❗️ Nota:")}
+      ${italic("Non ospito né fornisco alcun contenuto Acestream, ti aiuto solo a generare l'URL corretto.")}
 
-      ${blockquote(`⚠️ For more information contact the developer:\n@m1keehrmantraut`)}
+      ${blockquote(`⚠️ Per maggiori informazioni contatta lo sviluppatore:\n@m1keehrmantraut`)}
     `;
   await ctx.reply(message);
 });
@@ -54,7 +54,7 @@ bot.command("start", async (ctx) => {
 // Gestione messaggi di testo
 bot.on("message", async (ctx) => {
   const telegramId = ctx.from?.id!;
-  if (!allowedUsers.includes(telegramId)) return await ctx.reply(`❌ You aren't allowed to use this bot.`);
+  if (!allowedUsers.includes(telegramId)) return await ctx.reply(`❌ Non sei autorizzato a usare questo bot.`);
 
   try {
     const rawMessage = ctx.text;
@@ -63,7 +63,7 @@ bot.on("message", async (ctx) => {
     const extractedId = extractAcestreamId(message);
     const validatedAcestreamId = validateAcestreamId(extractedId);
     if (!validatedAcestreamId) {
-      return await ctx.reply(`⚠️ Invalid Acestream ID.`);
+      return await ctx.reply(`⚠️ ID Acestream non valido.`);
     }
     const inlineKeyboard: TelegramInlineKeyboardButton[][] = [
       [
@@ -75,8 +75,8 @@ bot.on("message", async (ctx) => {
     const replyMessage = format`${blockquote(format`${bold`${underline("SELEZIONA HOST")}`}\n\n🆔 ${italic("Acestream")}:\n${code(validatedAcestreamId)}`)}`;
     await ctx.reply(replyMessage, { ...replyOptions });
   } catch (error) {
-    const defaultMessage = `❌ An error occurred. Please try again.`;
-    logger.error(`❌ Error: ${(error as Error).message}`);
+    const defaultMessage = `❌ Si è verificato un errore. Riprova.`;
+    logger.error(`❌ Errore: ${(error as Error).message}`);
     await ctx.reply(code`${defaultMessage}`);
   }
 });
