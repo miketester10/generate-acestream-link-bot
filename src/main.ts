@@ -3,9 +3,9 @@ import { logger } from "./logger/logger";
 import { buildStartMessage } from "./messages/start.message";
 import { PARSE_ERROR_MESSAGES } from "./messages/parse-error.message";
 import { buildAcestreamLink } from "./utility/build-acestream-link.utility";
+import { env } from "./config/env.config";
 
-const BOT_TOKEN = process.env.BOT_TOKEN!;
-const bot = new Bot(BOT_TOKEN);
+const bot = new Bot(env.BOT_TOKEN);
 
 // Avvia il bot
 (async () => {
